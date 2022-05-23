@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+  
+    Search for movie: <input id="movieKeyword" type="text">
+
+    <div>
+    </div>
+
+    <script>
+
+     document.querySelector("#movieKeyword").addEventListener("change", function(){
+
+        var keyword =  document.querySelector("#movieKeyword").value;
+
+        var url = `https://www.omdbapi.com/?apikey=12215ee6&s=${keyword}`;
+
+         getData(url);
+
+     } );
+
+      
+
+      async function getData(url) {
+       let response =  await fetch(url);
+       let data = await response.json();
+       console.log(data.Search[0].Title);
+
+       data.Search.forEach( function(movie) {
+          document.querySelector("div").innerHTML += `<li> ${movie.Title} </li>`;
+
+       });
+       
+      }
+
+    </script>
+  </body>
+</html>
